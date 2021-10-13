@@ -8,6 +8,7 @@ html,
 body {
   height: 100%;
   color: #1c1c1c;
+  font-family: "Merriweather", serif;
 }
 
 :root {
@@ -15,4 +16,15 @@ body {
   --charcoal: #3b5268;
   --blue: #527fcb;
   --grey: #b7b7b7;
+}
+
+.header {
+  background: linear-gradient(to right, var(--blue) 0%, var(--purple) 120%);
+}
+
+.header h1 {
+  font-size: 2.5em;
+  text-align: center;
+  color: #fff;
+  padding: 0.2em 0 0.4em;
 }
