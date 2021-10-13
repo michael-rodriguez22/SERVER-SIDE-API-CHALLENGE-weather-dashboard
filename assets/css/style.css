@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  color: #1c1c1c;
+}
+
+:root {
+  --purple: #250a5a;
+  --charcoal: #3b5268;
+  --blue: #527fcb;
+  --grey: #b7b7b7;
+}
