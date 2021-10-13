@@ -35,11 +35,16 @@ h3 {
 .header {
   background: linear-gradient(to right, var(--blue) 0%, var(--purple) 80%);
   width: 100%;
-  padding: 0.8rem 0 1rem 5rem;
+  padding: 0.8rem 4rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.header h1 {
-  text-align: left;
+.header a {
+  font-size: 3rem;
   color: #fff;
 }
 
@@ -170,4 +175,49 @@ h3 {
   color: #fff;
   font-size: 1rem;
   padding-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 760px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .forecast {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .search {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .header a {
+    margin: auto;
+    font-size: 2.2rem;
+  }
+
+  .current_day h1 {
+    width: 100%;
+  }
+
+  .current_day ul {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .five_day_day {
+    width: 100%;
+    text-align: center;
+  }
 }
