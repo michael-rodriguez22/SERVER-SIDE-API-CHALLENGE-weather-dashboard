@@ -1,4 +1,14 @@
-// EVENT LISTENERS
+// UTILITY / GENERAL
+citySearchEl = document.getElementById("city-search");
+
+function searchHandler() {
+  apiCall(citySearchEl.value);
+}
+
+citySearchEl.addEventListener("keypress", (e) =>
+  e.key === "Enter" ? searchHandler() : 0
+);
+
 function toggleHistoryOpen() {
   document.querySelector(".history").classList.toggle("open");
   const icon = document.querySelector("#history-toggle-icon");
@@ -24,14 +34,15 @@ LS = {
 // DISPLAY DATA TO PAGE
 
 // MAKE API CALL AND UPDATE STORAGE / DISPLAY DATA
-async function apiCall(passedSearch, result) {
+async function apiCall(passedSearch) {
   const key = "219eeebee89bb95abff246f577c10545";
+  let result = {};
   await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${passedSearch}&appid=${key}`
   )
     .then((cityResponse) => {
       if (cityResponse.status === 200) {
-        valid = true;
+        citySearchEl.value = "";
         document.getElementById("invalid-message-el").style.display = "none";
         return cityResponse.json();
       } else {
@@ -52,6 +63,7 @@ async function apiCall(passedSearch, result) {
           //   console.log(data);
           result.current = data.current;
           result.daily = data.daily;
+          console.log(result);
         });
     })
     .catch(
@@ -59,6 +71,3 @@ async function apiCall(passedSearch, result) {
         (document.getElementById("invalid-message-el").style.display = "block")
     );
 }
-
-const result = {};
-apiCall("austin", result);

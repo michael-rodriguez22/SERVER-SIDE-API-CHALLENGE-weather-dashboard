@@ -40,16 +40,20 @@
           type="text"
           name="city-search"
           id="city-search"
-          placeholder="Austin"
+          placeholder="City Name"
         />
+        <button class="search_button accent" onclick="searchHandler()">
+          Search
+        </button>
         <p id="invalid-message-el">No results were found for this search...</p>
-        <button class="search_button accent">Search</button>
         <button class="search_button" onclick="toggleHistoryOpen()">
           History
           <i id="history-toggle-icon" class="fa fa-angle-down"></i>
         </button>
         <div class="history">
-          <button class="search_button accent">Clear History</button>
+          <button class="search_button accent" onclick="LS.clearStorage()">
+            Clear History
+          </button>
           <div class="history_items">
             <button class="search_button">Round Rock</button>
             <button class="search_button">San Antonio</button>
