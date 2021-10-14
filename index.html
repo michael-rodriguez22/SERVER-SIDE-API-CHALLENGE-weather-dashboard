@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- prettier-ignore -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
     />
-    <!-- prettier-ignore -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>Weather Dashboard</title>
   </head>
+
   <body>
     <!-- header -->
     <header class="header">
@@ -28,8 +31,8 @@
       </a>
     </header>
 
-    <!-- searchbar and search history -->
     <main class="main">
+      <!-- search section -->
       <section class="search">
         <h2>Search for a city:</h2>
         <input
@@ -41,8 +44,8 @@
         />
         <button class="search_button accent">Search</button>
         <button class="search_button" onclick="toggleHistoryOpen()">
-            History
-            <i id="history-toggle-icon" class="fa fa-angle-down"></i>
+          History
+          <i id="history-toggle-icon" class="fa fa-angle-down"></i>
         </button>
         <div class="history">
           <button class="search_button accent">Clear History</button>
@@ -50,11 +53,12 @@
             <button class="search_button">Round Rock</button>
             <button class="search_button">San Antonio</button>
             <button class="search_button">Dallas</button>
-            <button class="search_button">Houston</button>            
-          </div class="history_items">
+            <button class="search_button">Houston</button>
+          </div>
         </div>
       </section>
 
+      <!-- forecast section -->
       <section class="forecast">
         <h2>Today's Forecast</h2>
         <div class="current_day">
