@@ -19,7 +19,11 @@
     <!-- header -->
     <header class="header">
       <h1>Weather Dashboard</h1>
-      <a href="" title="Github Repository">
+      <a
+        href="https://github.com/mikeyrod22/SERVER-SIDE-API-CHALLENGE-weather-dashboard"
+        target="_blank"
+        title="Github Repository"
+      >
         <i class="fa fa-github"></i>
       </a>
     </header>
@@ -35,15 +39,19 @@
           id="city-search"
           placeholder="Austin"
         />
-        <button class="search_button">Search</button>
+        <button class="search_button accent">Search</button>
+        <button class="search_button" onclick="toggleHistoryOpen()">
+            History
+            <i id="history-toggle-icon" class="fa fa-angle-down"></i>
+        </button>
         <div class="history">
-          <button class="search_button">Clear History</button>
-          <ul>
-            <li>Round Rock</li>
-            <li>San Antonio</li>
-            <li>Dallas</li>
-            <li>Houston</li>
-          </ul>
+          <button class="search_button accent">Clear History</button>
+          <div class="history_items">
+            <button class="search_button">Round Rock</button>
+            <button class="search_button">San Antonio</button>
+            <button class="search_button">Dallas</button>
+            <button class="search_button">Houston</button>            
+          </div class="history_items">
         </div>
       </section>
 

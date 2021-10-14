@@ -70,13 +70,19 @@ h3 {
 }
 
 .search_button {
+  position: relative;
   font-size: 1.2rem;
-  background: var(--blue);
+  background: var(--charcoal);
   color: #fff;
   transition: background-color 0.5s;
-  padding: 0.3rem 0;
+  margin: 0.8rem 0;
+  padding: 0.5rem 0;
   border: none;
   border-radius: 10px;
+}
+
+.search_button.accent {
+  background: var(--blue);
 }
 
 .search_button:hover {
@@ -84,33 +90,38 @@ h3 {
   background-color: var(--purple);
 }
 
+#history-toggle-icon {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
 .history {
   display: flex;
   flex-direction: column;
-  border-top: solid 4px #1c1c1c;
-  margin-top: 2rem;
-  padding-top: 2rem;
-}
-
-.history ul {
-  list-style: none;
-  text-align: center;
-}
-
-.history ul li {
-  font-size: 1rem;
-  background: var(--grey);
-  transition: background-color 0.5s, color 0.5s;
-  margin: 0.8rem 0;
-  padding: 0.5rem 0;
-  border: none;
+  background-color: var(--grey);
   border-radius: 10px;
+  position: relative;
+  transition: 0.5s ease-in-out;
+  padding: 0 1rem;
+  max-height: 0;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.history ul li:hover {
-  cursor: pointer;
-  background: var(--charcoal);
-  color: #fff;
+.history::-webkit-scrollbar {
+  display: none;
+}
+
+.history.open {
+  padding: 0.8rem 1rem;
+  max-height: 1122px;
+}
+
+.history_items {
+  display: flex;
+  flex-direction: column;
 }
 
 /* forecast section */
