@@ -7,21 +7,41 @@ function toggleHistoryOpen() {
     : (icon.className = "fa fa-angle-down");
 }
 
-// API CALL
+// INTERFACE WITH LOCAL STORAGE
+LS = {
+  key: "SERVER-SIDE-API-CHALLENGE-weather-dashboard-mikeyrod22",
+  saveCity: function (cityName) {
+    let store = JSON.parse(localStorage.getItem(this.key)) || [];
+    store = store.filter((item) => item !== cityName);
+    store.unshift(cityName);
+    localStorage.setItem(this.key, JSON.stringify(store));
+  },
+  clearStorage: function () {
+    localStorage.removeItem(this.key);
+  },
+};
+
+// DISPLAY DATA TO PAGE
+
+// MAKE API CALL AND UPDATE STORAGE / DISPLAY DATA
 async function apiCall(passedSearch, result) {
   const key = "219eeebee89bb95abff246f577c10545";
-  //   let searchResponse = {};
   await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${passedSearch}&appid=${key}`
   )
     .then((cityResponse) => {
-      return cityResponse.status === 200
-        ? cityResponse.json()
-        : Promise.reject("No city was found with this name.");
+      if (cityResponse.status === 200) {
+        valid = true;
+        document.getElementById("invalid-message-el").style.display = "none";
+        return cityResponse.json();
+      } else {
+        return Promise.reject("No results were found for this search.");
+      }
     })
     .then((cityData) => {
-      console.log(cityData);
+      //   console.log(cityData);
       result.name = cityData.name;
+      LS.saveCity(result.name);
       const cityLat = cityData.coord.lat;
       const cityLon = cityData.coord.lon;
       fetch(
@@ -29,14 +49,16 @@ async function apiCall(passedSearch, result) {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          //   console.log(data);
           result.current = data.current;
           result.daily = data.daily;
         });
     })
-    .catch((err) => window.alert(err));
+    .catch(
+      (err) =>
+        (document.getElementById("invalid-message-el").style.display = "block")
+    );
 }
 
 const result = {};
-apiCall("dallas", result);
-console.log("result: ", result);
+apiCall("austin", result);

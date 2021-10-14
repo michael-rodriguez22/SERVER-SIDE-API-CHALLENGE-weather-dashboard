@@ -69,6 +69,14 @@ h3 {
   border-radius: 10px;
 }
 
+#invalid-message-el {
+  font-style: italic;
+  background-color: rgba(255, 0, 0, 0.227);
+  padding: 0.3rem;
+  border-radius: 10px;
+  display: none;
+}
+
 .search_button {
   position: relative;
   font-size: 1.2rem;
@@ -218,6 +226,10 @@ h3 {
   .header a {
     margin: auto;
     font-size: 2.2rem;
+  }
+
+  #invalid-message-el {
+    text-align: center;
   }
 
   .current_day h1 {
