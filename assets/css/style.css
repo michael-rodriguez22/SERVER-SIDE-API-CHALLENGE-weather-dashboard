@@ -130,9 +130,10 @@ h3 {
 }
 
 /* forecast section */
-.forecast {
+#forecast {
   width: 75%;
   margin: 2rem;
+  display: none;
 }
 
 .current_day {
@@ -142,7 +143,7 @@ h3 {
   margin: 2rem 0;
 }
 
-.current_day h1 {
+#current-day-h1 {
   text-align: center;
   color: var(--purple);
   border-bottom: solid 3px var(--charcoal);
@@ -150,14 +151,14 @@ h3 {
   margin: 0 auto;
 }
 
-.current_day_icon {
+.current-day-icon-wrapper {
   width: 140px;
   margin: 20px auto;
   border-radius: 10px;
   background: linear-gradient(var(--grey) 0%, var(--charcoal) 200%);
 }
 
-.current_day_icon img {
+#current-day-icon {
   width: 100%;
 }
 
@@ -169,6 +170,11 @@ h3 {
 .current_day ul li {
   font-size: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.uv-span {
+  padding: 0.15em 0.3em;
+  border-radius: 10px;
 }
 
 .five_day_wrapper {
@@ -200,7 +206,7 @@ h3 {
     flex-direction: column;
   }
 
-  .forecast {
+  #forecast {
     width: 80%;
     margin: 0 auto;
   }
@@ -229,7 +235,7 @@ h3 {
     text-align: center;
   }
 
-  .current_day h1 {
+  #current-day-h1 {
     width: 100%;
   }
 

@@ -18,6 +18,24 @@ function toggleHistoryOpen() {
     : (icon.className = "fa fa-angle-down");
 }
 
+function formatDate(unixDT) {
+  return new Date(unixDT * 1000).toLocaleDateString();
+}
+
+function iconToUrl(icon) {
+  return `https://openweathermap.org/img/wn/${icon}@4x.png`;
+}
+
+function renderUV(uvIndex) {
+  let color;
+  if (uvIndex < 3) color = "#8DC443";
+  else if (uvIndex > 3 && uvIndex < 6) color = "#FDD835";
+  else if (uvIndex > 6 && uvIndex < 8) color = "#FFB301";
+  else color = "#D1394A";
+
+  return `<li>UV Index: <span style="background-color: ${color};" class="uv-span">${uvIndex}</span></li>`;
+}
+
 // INTERFACE WITH LOCAL STORAGE
 LS = {
   key: "SERVER-SIDE-API-CHALLENGE-weather-dashboard-mikeyrod22",
@@ -47,11 +65,31 @@ LS = {
 };
 
 // DISPLAY DATA TO PAGE
-function renderPage(data) {}
+function renderPage(data) {
+  // current
+  document.getElementById("current-day-h1").innerText = `
+  ${data.name} ${formatDate(data.current.dt)}
+  `;
+  document.getElementById("current-day-icon").src = iconToUrl(
+    data.current.weather[0].icon
+  );
+  document.getElementById(
+    "current-temp"
+  ).innerText = `Temperature: ${Math.floor(data.current.temp)}°F`;
+  document.getElementById(
+    "current-wind"
+  ).innerText = `Wind: ${data.current.wind_speed} MPH`;
+  document.getElementById(
+    "current-humidity"
+  ).innerText = `Humidity: ${data.current.humidity}%`;
+  document.getElementById("current-uv").innerHTML = renderUV(data.current.uvi);
+
+  document.getElementById("forecast").style.display = "unset";
+}
 
 // MAKE API CALL AND UPDATE STORAGE / DISPLAY DATA
 async function apiCall(passedSearch) {
-  const key = "219eeebee89bb95abff246f577c10545";
+  const key = "4931892c7d3eaa85553448497029548d";
   let result = {};
   await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${passedSearch}&appid=${key}`
@@ -66,7 +104,6 @@ async function apiCall(passedSearch) {
       }
     })
     .then((cityData) => {
-      //   console.log(cityData);
       result.name = cityData.name;
       LS.saveCity(result.name);
       const cityLat = cityData.coord.lat;
@@ -76,10 +113,10 @@ async function apiCall(passedSearch) {
       )
         .then((response) => response.json())
         .then((data) => {
-          //   console.log(data);
           result.current = data.current;
           result.daily = data.daily;
           console.log(result);
+          renderPage(result);
         });
     })
     .catch((err) => {
