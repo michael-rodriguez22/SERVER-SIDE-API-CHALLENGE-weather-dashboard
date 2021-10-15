@@ -10,6 +10,7 @@ citySearchEl.addEventListener("keypress", (e) =>
 );
 
 function toggleHistoryOpen() {
+  LS.renderHistory();
   document.querySelector(".history").classList.toggle("open");
   const icon = document.querySelector("#history-toggle-icon");
   icon.className === "fa fa-angle-down"
@@ -20,18 +21,33 @@ function toggleHistoryOpen() {
 // INTERFACE WITH LOCAL STORAGE
 LS = {
   key: "SERVER-SIDE-API-CHALLENGE-weather-dashboard-mikeyrod22",
+  renderHistory: function () {
+    let historyItemsEl = document.querySelector(".history-items");
+    while (historyItemsEl.firstChild)
+      historyItemsEl.removeChild(historyItemsEl.firstChild);
+    JSON.parse(localStorage.getItem(this.key)).forEach((city) => {
+      let button = document.createElement("button");
+      button.innerText = city;
+      button.onclick = () => apiCall(city);
+      button.className = "search_button";
+      document.querySelector(".history-items").appendChild(button);
+    });
+  },
   saveCity: function (cityName) {
     let store = JSON.parse(localStorage.getItem(this.key)) || [];
     store = store.filter((item) => item !== cityName);
     store.unshift(cityName);
     localStorage.setItem(this.key, JSON.stringify(store));
+    this.renderHistory();
   },
   clearStorage: function () {
-    localStorage.removeItem(this.key);
+    localStorage.setItem(this.key, JSON.stringify([]));
+    this.renderHistory();
   },
 };
 
 // DISPLAY DATA TO PAGE
+function renderPage(data) {}
 
 // MAKE API CALL AND UPDATE STORAGE / DISPLAY DATA
 async function apiCall(passedSearch) {
@@ -43,10 +59,10 @@ async function apiCall(passedSearch) {
     .then((cityResponse) => {
       if (cityResponse.status === 200) {
         citySearchEl.value = "";
-        document.getElementById("invalid-message-el").style.display = "none";
+        document.getElementById("invalid-message-el").innerText = "";
         return cityResponse.json();
       } else {
-        return Promise.reject("No results were found for this search.");
+        return Promise.reject("No results were found for this search...");
       }
     })
     .then((cityData) => {
@@ -66,8 +82,8 @@ async function apiCall(passedSearch) {
           console.log(result);
         });
     })
-    .catch(
-      (err) =>
-        (document.getElementById("invalid-message-el").style.display = "block")
-    );
+    .catch((err) => {
+      document.getElementById("invalid-message-el").innerText = err;
+      console.log(err);
+    });
 }
