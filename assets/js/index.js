@@ -26,16 +26,6 @@ function iconToUrl(icon) {
   return `https://openweathermap.org/img/wn/${icon}@4x.png`;
 }
 
-function renderUV(uvIndex) {
-  let color;
-  if (uvIndex < 3) color = "#8DC443";
-  else if (uvIndex > 3 && uvIndex < 6) color = "#FDD835";
-  else if (uvIndex > 6 && uvIndex < 8) color = "#FFB301";
-  else color = "#D1394A";
-
-  return `<li>UV Index: <span style="background-color: ${color};" class="uv-span">${uvIndex}</span></li>`;
-}
-
 // INTERFACE WITH LOCAL STORAGE
 LS = {
   key: "SERVER-SIDE-API-CHALLENGE-weather-dashboard-mikeyrod22",
@@ -65,8 +55,31 @@ LS = {
 };
 
 // DISPLAY DATA TO PAGE
+function renderUV(uvIndex) {
+  let color;
+  if (uvIndex < 3) color = "#8DC443";
+  else if (uvIndex > 3 && uvIndex < 6) color = "#FDD835";
+  else if (uvIndex > 6 && uvIndex < 8) color = "#FFB301";
+  else color = "#D1394A";
+
+  return `<li>UV Index: <span style="background-color: ${color};" class="uv-span">${uvIndex}</span></li>`;
+}
+
+function renderFiveDayItem(data) {
+  let div = document.createElement("div");
+  div.className = "five-day-item";
+  div.innerHTML = `
+      <h3>${formatDate(data.dt)}<h3>
+      <img src="${iconToUrl(data.weather[0].icon)}" />
+      <p>Temp: ${Math.floor(data.temp.day)}°F</p>
+      <p>Wind: ${Math.floor(data.wind_speed)}MPH</p>
+      <p>Humidity: ${data.humidity}%</p>  
+    `;
+  document.getElementById("five-day-wrapper").appendChild(div);
+}
+
 function renderPage(data) {
-  // current
+  // today's forecast
   document.getElementById("current-day-h1").innerText = `
   ${data.name} ${formatDate(data.current.dt)}
   `;
@@ -76,14 +89,19 @@ function renderPage(data) {
   document.getElementById(
     "current-temp"
   ).innerText = `Temperature: ${Math.floor(data.current.temp)}°F`;
-  document.getElementById(
-    "current-wind"
-  ).innerText = `Wind: ${data.current.wind_speed} MPH`;
+  document.getElementById("current-wind").innerText = `Wind: ${Math.floor(
+    data.current.wind_speed
+  )} MPH`;
   document.getElementById(
     "current-humidity"
   ).innerText = `Humidity: ${data.current.humidity}%`;
   document.getElementById("current-uv").innerHTML = renderUV(data.current.uvi);
 
+  // five day forecast
+  document.getElementById("five-day-wrapper").innerHTML = "";
+  for (let i = 1; i < 6; i++) renderFiveDayItem(data.daily[i]);
+
+  // display page
   document.getElementById("forecast").style.display = "unset";
 }
 
@@ -109,7 +127,7 @@ async function apiCall(passedSearch) {
       const cityLat = cityData.coord.lat;
       const cityLon = cityData.coord.lon;
       fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&units=imperial&exclude=minutely,hourly,alerts&appid=${key}`
       )
         .then((response) => response.json())
         .then((data) => {

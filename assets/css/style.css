@@ -177,13 +177,13 @@ h3 {
   border-radius: 10px;
 }
 
-.five_day_wrapper {
+#five-day-wrapper {
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
 }
 
-.five_day_day {
+.five-day-item {
   background: linear-gradient(var(--grey) 0%, var(--charcoal) 200%);
   padding: 1rem;
   margin: 2rem 0.4rem;
@@ -191,11 +191,11 @@ h3 {
   color: var(--purple);
 }
 
-.five_day_day img {
+.five-day-item img {
   width: 150px;
 }
 
-.five_day_day p {
+.five-day-item p {
   color: #fff;
   font-size: 1rem;
   padding-bottom: 0.5rem;
@@ -244,7 +244,7 @@ h3 {
     text-align: center;
   }
 
-  .five_day_day {
+  .five-day-item {
     width: 100%;
     text-align: center;
   }
