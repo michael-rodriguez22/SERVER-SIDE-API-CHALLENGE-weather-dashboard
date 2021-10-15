@@ -108,7 +108,7 @@ function renderPage(data) {
 // MAKE API CALL AND UPDATE STORAGE / DISPLAY DATA
 async function apiCall(passedSearch) {
   const key = "4931892c7d3eaa85553448497029548d";
-  let result = {};
+  let searchResult = {};
   await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${passedSearch}&appid=${key}`
   )
@@ -122,8 +122,8 @@ async function apiCall(passedSearch) {
       }
     })
     .then((cityData) => {
-      result.name = cityData.name;
-      LS.saveCity(result.name);
+      searchResult.name = cityData.name;
+      LS.saveCity(searchResult.name);
       const cityLat = cityData.coord.lat;
       const cityLon = cityData.coord.lon;
       fetch(
@@ -131,10 +131,10 @@ async function apiCall(passedSearch) {
       )
         .then((response) => response.json())
         .then((data) => {
-          result.current = data.current;
-          result.daily = data.daily;
-          console.log(result);
-          renderPage(result);
+          searchResult.current = data.current;
+          searchResult.daily = data.daily;
+          console.log("Search Result:", searchResult);
+          renderPage(searchResult);
         });
     })
     .catch((err) => {
