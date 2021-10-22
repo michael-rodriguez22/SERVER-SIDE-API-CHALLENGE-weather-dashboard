@@ -33,13 +33,15 @@ LS = {
     let historyItemsEl = document.querySelector(".history-items");
     while (historyItemsEl.firstChild)
       historyItemsEl.removeChild(historyItemsEl.firstChild);
-    JSON.parse(localStorage.getItem(this.key)).forEach((city) => {
-      let button = document.createElement("button");
-      button.innerText = city;
-      button.onclick = () => apiCall(city);
-      button.className = "search_button";
-      document.querySelector(".history-items").appendChild(button);
-    });
+    if (localStorage.getItem(this.key)) {
+      JSON.parse(localStorage.getItem(this.key)).forEach((city) => {
+        let button = document.createElement("button");
+        button.innerText = city;
+        button.onclick = () => apiCall(city);
+        button.className = "search_button";
+        document.querySelector(".history-items").appendChild(button);
+      });
+    }
   },
   saveCity: function (cityName) {
     let store = JSON.parse(localStorage.getItem(this.key)) || [];
